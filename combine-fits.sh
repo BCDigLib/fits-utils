@@ -13,7 +13,10 @@ rootclose="</combined-fits>"
 echo "Combining FITS files..."
 
 # combine files into a single file and remove the XML declarations
-for file in $fitsdir/*fits.xml; do cat $file | egrep -v "xml version" >> $fitsdir/body.xml; done
+for file in $fitsdir/*fits.xml; do
+  echo "Processing $file"
+  cat $file | egrep -v "xml version" >> $fitsdir/body.xml
+done
 
 # add combined FITS to output file, along with single XML declaration and opening and closing wrapper tags
 echo $xmldesc >> $fitsdir/combined-fits.xml
@@ -23,3 +26,5 @@ echo $rootclose >> $fitsdir/combined-fits.xml
 
 # delete working file
 rm $fitsdir/body.xml
+
+echo "Done!"
